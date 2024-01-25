@@ -45,7 +45,7 @@ func TestGetHello(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := "Hello, HTTP!\n"
+	expected := "Hello, There!\n"
 	if recorder.Body.String() != expected {
 		t.Errorf("Handler returned unexpected body: got %v want %v",
 			recorder.Body.String(), expected)

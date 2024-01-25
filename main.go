@@ -23,9 +23,14 @@ func main() {
 }
 func getRoot(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("got / request\n")
-	io.WriteString(w, "This is my website!\n")
+	if bytesWritten, err := io.WriteString(w, "This is my website!\n"); err != nil {
+		fmt.Printf("bytesWritten %d, err %s", bytesWritten, err.Error())
+	}
 }
 func getHello(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("got /hello request\n")
-	io.WriteString(w, "Hello, HTTP!\n")
+	if bytesWritten, err := io.WriteString(w, "Hello, There!\n"); err != nil {
+		fmt.Printf("bytesWritten %d, err %s", bytesWritten, err.Error())
+
+	}
 }
