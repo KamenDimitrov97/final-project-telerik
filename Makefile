@@ -4,10 +4,13 @@ WHITE  := $(shell tput -Txterm setaf 7)
 CYAN   := $(shell tput -Txterm setaf 6)
 RESET  := $(shell tput -Txterm sgr0)
 
-.PHONY: all audit build build-bin clean convey debug delimiter-% fmt lint run run-container test test-all test-component update help
+.PHONY: audit build clean delimiter fmt lint run test update help
 
 audit: ## Audits and finds vulnerable dependencies
 	go list -json -m all | nancy sleuth
+
+build: Dockerfile ## Builds ./Dockerfile image name: project
+	docker build -t project .
 
 clean: ## Removes /bin folder
 	rm -fr ./build
@@ -25,6 +28,9 @@ lint: ## Automated checking of your source code for programmatic and stylistic e
 
 run: ## Run the app locally
 	go run . 
+
+run-container: build ## First builds ./Dockerfile with image name: project and then runs a container, with name: project_container, on port :28700 
+	docker run -p :3333:3333 --name project_container -ti --rm project
 
 test: ## Runs standard unit test tests
 	go test -race -cover -v ./... 
