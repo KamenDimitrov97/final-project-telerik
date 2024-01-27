@@ -1,10 +1,11 @@
 name: Feature-Branch-CI
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on:
-  pull_request:
-    types:
-      - opened
-
+  push:
+    branches:
+      - 'feature/*'
+      - 'fix/*'
+      - 'hotfix/*'
 jobs:
   pre-build:
     runs-on: ubuntu-latest

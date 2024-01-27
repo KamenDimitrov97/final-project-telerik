@@ -1,9 +1,9 @@
-name: Feature-Branch-CI
+name: Production-Branch-CI-CD
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on:
   push:
     branches:
-      - 'main'
+      - 'master'
 
 jobs:
   pre-build:
