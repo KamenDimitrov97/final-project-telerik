@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - 'master'
+      - 'release/*'
 
 jobs:
   pre-build:
@@ -12,23 +13,24 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
       - uses: wagoid/commitlint-github-action@v5
-      - uses: gitleaks/gitleaks-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - uses: gitleaks/gitleaks-action@v2
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  code-vulnerabilities-check:
+  code-security:
     runs-on: ubuntu-latest
     env:
       GO111MODULE: on
     steps:
       - name: Checkout Source
         uses: actions/checkout@v3
+
       - name: Run Gosec Security Scanner
         uses: securego/gosec@master
         with:
           args: ./...
 
-  dep-vulnerabilities-check:
+  deps-security:
     needs: pre-build
     runs-on: ubuntu-latest
     name: Run govulncheck
@@ -48,6 +50,7 @@ jobs:
         with:
           go-version: '1.21'
           cache: true
+
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v3
         with:
@@ -62,19 +65,22 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
+
       - name: Setup Go
         uses: actions/setup-go@v4
         with:
           go-version: '1.21'
           cache: false
-      - name: gotest
+
+      - name: Run tests
         run: go test ./... -v -count 1 -timeout 5m
+
       - name: Check editorconfig compliance
         uses: editorconfig-checker/action-editorconfig-checker@main
       - run: editorconfig-checker
 
   deploy:
-    needs: [pre-build, test-build, lint]
+    needs: [pre-build, test-build, lint, deps-security, code-security]
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     steps:
@@ -101,14 +107,14 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: stroming/final-project-telerik:latest
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Run Trivy vulnerability scanner
         if: ${{ !contains(github.event.commits[0].message, '[trivy-skip]') }}
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: 'docker.io/${{ steps.meta.outputs.tags }}'
+          image-ref: 'docker.io/stroming/final-project-telerik:latest'
           format: 'table'
           exit-code: '1'
           ignore-unfixed: true

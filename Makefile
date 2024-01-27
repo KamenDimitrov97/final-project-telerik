@@ -4,7 +4,7 @@ WHITE  := $(shell tput -Txterm setaf 7)
 CYAN   := $(shell tput -Txterm setaf 6)
 RESET  := $(shell tput -Txterm sgr0)
 
-.PHONY: audit build clean delimiter fmt lint run test update help
+.PHONY: audit build clean code-sec delimiter fmt lint run test update help
 
 audit: ## Audits and finds vulnerable dependencies
 	govulncheck ./...
@@ -13,11 +13,14 @@ build: Dockerfile ## Builds ./Dockerfile image name: project
 	docker build -t project .
 
 build-bin: Dockerfile ## Builds ./Dockerfile image name: project
-	go build -o build/final-project
+	go build -o build/main
 
 clean: ## Removes /bin folder
 	rm -fr ./build
 	rm -fr ./vendor
+
+code-sec: ## Checks code for security issues
+	gosec ./...
 
 delimiter-%:
 	@echo '===================${GREEN} $* ${RESET}==================='
