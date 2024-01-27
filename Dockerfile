@@ -1,19 +1,25 @@
-# Use Fedora 39 as the base image
 FROM fedora:39 as base
+
+WORKDIR /app
 
 RUN dnf update -y
 
 RUN dnf install -y golang
 
-FROM base
+COPY . .
+
+RUN make build-bin
+
+FROM ubuntu:23.10
+
+RUN useradd -u 5000 server
 
 WORKDIR /app
 
-COPY . .
-
-RUN go build -o main
+COPY --from=base app/build /app/
 
 EXPOSE 3333
 
-# Command to run the Go application
+USER server:server
+
 CMD ["./main"]
