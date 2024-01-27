@@ -16,7 +16,19 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  govulncheck_job:
+  code-vulnerabilities-check:
+    runs-on: ubuntu-latest
+    env:
+      GO111MODULE: on
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v3
+      - name: Run Gosec Security Scanner
+        uses: securego/gosec@master
+        with:
+          args: ./...
+
+  dep-vulnerabilities-check:
     needs: pre-build
     runs-on: ubuntu-latest
     name: Run govulncheck
