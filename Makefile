@@ -7,7 +7,7 @@ RESET  := $(shell tput -Txterm sgr0)
 .PHONY: audit build clean delimiter fmt lint run test update help
 
 audit: ## Audits and finds vulnerable dependencies
-	go list -json -m all | nancy sleuth
+	govulncheck ./...
 
 build: Dockerfile ## Builds ./Dockerfile image name: project
 	docker build -t project .
