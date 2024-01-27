@@ -6,18 +6,26 @@ import (
 	"io"
 	"net/http"
 	"os"
+
+	"github.com/KamenDimitrov97/final-project-telerik/config"
 )
 
 func main() {
 	http.HandleFunc("/", getRoot)
 	http.HandleFunc("/hello", getHello)
 
-	fmt.Println("starting server")
-	err := http.ListenAndServe(":3333", nil)
-	if errors.Is(err, http.ErrServerClosed) {
+	cfg, err := config.Get()
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println("starting server: ")
+
+	svcError := http.ListenAndServe(cfg.BindAddr, nil)
+	if errors.Is(svcError, http.ErrServerClosed) {
 		fmt.Printf("server closed\n")
 	} else if err != nil {
-		fmt.Printf("error starting server: %s\n", err)
+		fmt.Printf("error starting server: %s\n", svcError)
 		os.Exit(1)
 	}
 }
@@ -31,6 +39,5 @@ func getHello(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("got /hello request\n")
 	if bytesWritten, err := io.WriteString(w, "Hello, There!\n"); err != nil {
 		fmt.Printf("bytesWritten %d, err %s", bytesWritten, err.Error())
-
 	}
 }
