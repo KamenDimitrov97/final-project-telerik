@@ -42,7 +42,7 @@ update: ## Go gets all of the dependencies and downloads them
 	go get .
 	go mod download
 
-help: ## Show this help.
+help: ## Show this help
 	@echo ''
 	@echo 'Usage:'
 	@echo '  ${YELLOW}make${RESET} ${GREEN}<target>${RESET}'
