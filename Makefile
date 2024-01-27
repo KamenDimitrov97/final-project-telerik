@@ -18,7 +18,7 @@ build-bin: Dockerfile ## Builds ./Dockerfile image name: project
 clean: ## Removes /bin folder
 	rm -fr ./build
 	rm -fr ./vendor
-	
+
 delimiter-%:
 	@echo '===================${GREEN} $* ${RESET}==================='
 
@@ -30,13 +30,13 @@ lint: ## Automated checking of your source code for programmatic and stylistic e
 	golangci-lint run ./...
 
 run: ## Run the app locally
-	go run . 
+	go run .
 
-run-container: build ## First builds ./Dockerfile with image name: project and then runs a container, with name: project_container, on port :28700 
+run-container: build ## First builds ./Dockerfile with image name: project and then runs a container, with name: project_container, on port :28700
 	docker run -p :3333:3333 --name project_container -ti --rm project
 
 test: ## Runs standard unit test tests
-	go test -race -cover -v ./... 
+	go test -race -cover -v ./...
 
 update: ## Go gets all of the dependencies and downloads them
 	go get .
