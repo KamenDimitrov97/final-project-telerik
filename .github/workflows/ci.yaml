@@ -12,10 +12,21 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
-      # - uses: wagoid/commitlint-github-action@v5
+      - uses: wagoid/commitlint-github-action@v5
       - uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  govulncheck_job:
+    needs: pre-build
+    runs-on: ubuntu-latest
+    name: Run govulncheck
+    steps:
+      - id: govulncheck
+        uses: golang/govulncheck-action@v1
+        with:
+            go-version-input: 1.21
+            go-package: ./...
 
   lint:
     needs: pre-build
@@ -25,7 +36,7 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v4
         with:
-          go-version: '1.20.x'
+          go-version: '1.21'
           cache: true
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v3
@@ -44,7 +55,7 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v4
         with:
-          go-version: '1.20.x'
+          go-version: '1.21'
           cache: false
       - name: gotest
         run: go test ./... -v -count 1 -timeout 5m
