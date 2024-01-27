@@ -12,6 +12,9 @@ audit: ## Audits and finds vulnerable dependencies
 build: Dockerfile ## Builds ./Dockerfile image name: project
 	docker build -t project .
 
+build-bin: Dockerfile ## Builds ./Dockerfile image name: project
+	go build -o build/final-project
+
 clean: ## Removes /bin folder
 	rm -fr ./build
 	rm -fr ./vendor
