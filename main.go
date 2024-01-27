@@ -11,17 +11,29 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/", getRoot)
-	http.HandleFunc("/hello", getHello)
+	mux := http.NewServeMux()
 
 	cfg, err := config.Get()
 	if err != nil {
 		fmt.Println(err)
 	}
 
+	root := http.HandlerFunc(getRoot)
+	helloWorld := http.HandlerFunc(getHello)
+
+	mux.Handle("/", root)
+	mux.Handle("/hello", helloWorld)
+
+	server := &http.Server{
+		Addr:         cfg.BindAddr,
+		Handler:      mux,
+		ReadTimeout:  cfg.ReadTimeout,
+		WriteTimeout: cfg.WriteTimeout,
+	}
+
 	fmt.Println("starting server: ")
 
-	svcError := http.ListenAndServe(cfg.BindAddr, nil)
+	svcError := server.ListenAndServe()
 	if errors.Is(svcError, http.ErrServerClosed) {
 		fmt.Printf("server closed\n")
 	} else if err != nil {
