@@ -12,12 +12,8 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
-
-      - name: Check commit messages
-        uses: wagoid/commitlint-github-action@v5
-
-      # - name: Check for hardcoded secrets and passwords
-      #   uses: gitleaks/gitleaks-action@v2
+      - uses: wagoid/commitlint-github-action@v5
+      # - uses: gitleaks/gitleaks-action@v2
       #   env:
       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
