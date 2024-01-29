@@ -1,0 +1,55 @@
+replicaCount: 3
+
+image:
+  repository: stroming/final-project-telerik
+  pullPolicy: Always
+  tag: latest
+
+imagePullSecrets: [] # TO-DO
+nameOverride: ""
+fullnameOverride: ""
+
+securityContext: 
+  readOnlyRootFilesystem: true
+  # Docker image handles the user already
+  # runAsNonRoot: true
+
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 60
+  targetMemoryUtilizationPercentage: 60
+
+service:
+  type: LoadBalancer
+  port: 80
+
+# TO-DO: set an ingress controller
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: tlk.test.local
+      paths:
+      - path: /
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: your-go-app-service
+            port:
+              number: 80
+      - path: /hello
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: your-go-app-service
+            port:
+              number: 80
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local

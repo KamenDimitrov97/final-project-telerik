@@ -1,0 +1,9 @@
+releases:
+  - name: go-app
+    chart: ./go-app-chart
+    namespace: telerik
+  
+helmDefaults:
+  wait: false
+  timeout: 600
+  createNamespace: false
