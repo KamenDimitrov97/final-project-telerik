@@ -107,7 +107,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: stroming/final-project-telerik:master-${{ github.sha }}
+          tags: stroming/final-project-telerik:master-${{ github.run_id }}
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Run Trivy vulnerability scanner

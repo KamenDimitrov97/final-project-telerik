@@ -1,10 +1,5 @@
 replicaCount: 3
 
-image:
-  repository: stroming/final-project-telerik
-  pullPolicy: Always
-  tag: 71e8337
-
 imagePullSecrets: [] # TO-DO
 nameOverride: ""
 fullnameOverride: ""
