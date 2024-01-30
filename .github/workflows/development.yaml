@@ -2,8 +2,8 @@ name: Production-Branch-CI-CD
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on:
   push:
-    tags:
-    - '*'
+    branches:
+      - 'master'
 
 jobs:
   pre-build:
@@ -100,17 +100,13 @@ jobs:
           tags: |
             type=sha,format=short,prefix=
 
-      - name: Get Current Tag
-        id: get_tag
-        run: echo "::set-output name=tag::${GITHUB_REF/refs\/tags\//}"
-
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
           context: .
           file: ./Dockerfile
           push: true
-          tags: stroming/final-project-telerik:${{ steps.get_tag.outputs.tag }}
+          tags: stroming/final-project-telerik:master-${{ github.run_id }}
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Run Trivy vulnerability scanner

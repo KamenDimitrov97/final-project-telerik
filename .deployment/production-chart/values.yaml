@@ -35,14 +35,14 @@ ingress:
         pathType: ImplementationSpecific
         backend:
           service:
-            name: develop-service
+            name: prod-service
             port:
               number: 80
       - path: /hello
         pathType: ImplementationSpecific
         backend:
           service:
-            name: develop-service
+            name: prod-service
             port:
               number: 80
   tls: []
