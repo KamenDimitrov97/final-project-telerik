@@ -23,6 +23,7 @@ autoscaling:
 
 service:
   type: LoadBalancer
+  containerPort: 3333
   port: 80
 
 # TO-DO: set an ingress controller
