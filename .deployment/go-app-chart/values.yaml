@@ -3,7 +3,7 @@ replicaCount: 3
 image:
   repository: stroming/final-project-telerik
   pullPolicy: Always
-  tag: latest
+  tag: 71e8337
 
 imagePullSecrets: [] # TO-DO
 nameOverride: ""
@@ -16,7 +16,7 @@ securityContext:
 
 autoscaling:
   enabled: true
-  minReplicas: 1
+  minReplicas: 2
   maxReplicas: 10
   targetCPUUtilizationPercentage: 60
   targetMemoryUtilizationPercentage: 60
