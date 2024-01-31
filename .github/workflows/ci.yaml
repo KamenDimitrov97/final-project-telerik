@@ -5,6 +5,7 @@ on:
     branches:
       - 'feature/*'
       - 'fix/*'
+      - 'docs/*'
 jobs:
   pre-build:
     runs-on: ubuntu-latest
