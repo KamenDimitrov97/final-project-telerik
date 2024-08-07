@@ -1,5 +1,3 @@
-# .github/config.yml
-
 issues:
   - type: bug
     name: "🐛 Bug report"
@@ -24,21 +22,3 @@ issues:
     labels: ["enhancement"]
     assignees: ['']
     template: "ISSUE_TEMPLATE/improve_existing_functionality.md"
-
-pull_request_templates:
-  - name: "Feature"
-    description: "Template for a new feature"
-    file: ".github/pull_request_templates/feature_request.md"
-  - name: "Bug Fix"
-    description: "Template for fixing a bug"
-    file: ".github/pull_request_templates/bug_fix.md"
-  - name: "Documentation"
-    description: "Template for updating documentation"
-    file: ".github/pull_request_templates/documentation.md"
-
-
-blank_issues_enabled: false
-# contact_links:
-#   - name: "Contact support"
-#     url: "https://example.com/support"
-#     about: "Contact our support team for help"
