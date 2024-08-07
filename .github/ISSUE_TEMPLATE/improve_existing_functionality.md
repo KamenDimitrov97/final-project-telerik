@@ -1,3 +1,10 @@
+---
+name: "🛠 Improvement"
+about: "Improve an existing feature"
+title: "🛠 [DATE]: Title"
+labels: ["enhancement"]
+assignees: ['']
+---
 ### Improvement Proposal
 
 Describe the improvement you would like to propose. Be clear and concise.

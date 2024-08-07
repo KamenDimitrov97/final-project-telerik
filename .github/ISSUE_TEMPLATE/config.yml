@@ -5,15 +5,15 @@ issues:
     title: "Bug: "
     labels: ["bug"]
     assignees: ['']
-    template: "ISSUE_TEMPLATE/bug_report.md"
+    template: "bug_report.md"
 
   - type: feature
     name: "✨ Feature request"
     about: "Suggest an idea for this project"
     title: "Feature: "
-    labels: ["enhancement"]
+    labels: ["feat request"]
     assignees: ['']
-    template: "ISSUE_TEMPLATE/feature_request.md"
+    template: "feature_request.md"
 
   - type: improvement
     name: "🛠 Improvement"
@@ -21,4 +21,5 @@ issues:
     title: "Improvement: "
     labels: ["enhancement"]
     assignees: ['']
-    template: "ISSUE_TEMPLATE/improve_existing_functionality.md"
+    template: "improve_existing_functionality.md"
+

@@ -1,3 +1,10 @@
+---
+name: "🐛 Bug report"
+about: "Report a bug to help us improve"
+title: "🐛 [DATE]: Title"
+labels: ["bug"]
+assignees: ['']
+---
 ### Issue Summary
 
 Briefly describe the issue you are experiencing.
