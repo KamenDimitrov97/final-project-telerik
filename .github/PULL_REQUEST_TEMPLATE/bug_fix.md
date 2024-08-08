@@ -15,7 +15,7 @@ Describe what you expected to happen.
 Describe what actually happened.
 
 ### Environment
-- Operating System: 
+- Operating System:
 - Version of the software:
 - Any other relevant information:
 

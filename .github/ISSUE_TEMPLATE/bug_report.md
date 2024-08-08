@@ -45,4 +45,5 @@ Add any other context or information about the issue here.
 
 ---
 
-**Note:** Please make sure to check if there is already an existing issue similar to yours before submitting a new one. If you find an existing issue, you can comment on it to provide additional information or to show that you are experiencing the same problem.
+**Note:** Please make sure to check if there is already an existing issue similar to yours before submitting a new one. If you find an existing issue,
+you can comment  on it to provide additional information or to show that you are experiencing the same problem.
