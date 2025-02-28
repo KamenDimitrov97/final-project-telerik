@@ -3,6 +3,7 @@ YELLOW := $(shell tput -Txterm setaf 3)
 WHITE  := $(shell tput -Txterm setaf 7)
 CYAN   := $(shell tput -Txterm setaf 6)
 RESET  := $(shell tput -Txterm sgr0)
+backEndImg := $(notdir $(shell pwd))-be
 
 .PHONY: audit build clean code-sec delimiter fmt lint run test update help
 
@@ -10,7 +11,7 @@ audit: ## Audits and finds vulnerable dependencies
 	govulncheck ./...
 
 build: Dockerfile ## Builds ./Dockerfile image name: project
-	docker build -t project .
+	docker build -t $(backEndImg) .
 
 build-bin: Dockerfile ## Builds ./Dockerfile image name: project
 	go build -o build/main
